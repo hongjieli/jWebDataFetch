@@ -28,8 +28,9 @@ public class JLiCaiWangDataFetch {
         webClient.getOptions().setActiveXNative(false);
         webClient.getOptions().setCssEnabled(false);
         webClient.getOptions().setThrowExceptionOnScriptError(false);
+        webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
         final HtmlPage page=webClient.getPage("http://www.chinawealth.com.cn/zzlc/jsp/lccp.jsp");
-        Thread.sleep(15000);
+        Thread.sleep(20000);
         System.out.println(page.asText());
         webClient.closeAllWindows();
         
