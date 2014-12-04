@@ -7,6 +7,7 @@ package jlicaiwangdatafetch;
 
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.NicelyResynchronizingAjaxController;
+import com.gargoylesoftware.htmlunit.ScriptResult;
 import com.gargoylesoftware.htmlunit.WebClient;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import java.io.IOException;
@@ -29,9 +30,17 @@ public class JLiCaiWangDataFetch {
         webClient.getOptions().setCssEnabled(false);
         webClient.getOptions().setThrowExceptionOnScriptError(false);
         webClient.getOptions().setThrowExceptionOnFailingStatusCode(false);
-        final HtmlPage page=webClient.getPage("http://www.chinawealth.com.cn/zzlc/jsp/lccp.jsp");
+        
+        //Open the root page
+        final HtmlPage rootPage=webClient.getPage("http://www.chinawealth.com.cn/zzlc/jsp/lccp.jsp");
         Thread.sleep(20000);
-        System.out.println(page.asXml());
+        System.out.println(rootPage.asXml());
+        
+        ScriptResult sr = rootPage.executeJavaScript("javascript:Table.controlPage(2,4)");
+        final HtmlPage tmpPage = (HtmlPage) sr.getNewPage();
+        Thread.sleep(5000);
+        System.out.println(tmpPage.asXml());
+        
         webClient.closeAllWindows();
         
     }
